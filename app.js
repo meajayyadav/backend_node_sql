@@ -5,7 +5,8 @@ const dotenv = require('dotenv');
 const cors =require('cors');
 const authRoutes = require('./routes/authRoutes');
 const { Sequelize } = require('sequelize');
-const menuRoutes =require('./routes/menu.routes')
+const menuRoutes =require('./routes/menu.routes');
+const studentRoutes = require('./routes/student.routes')
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use(cors());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', menuRoutes);
+app.use('/api', studentRoutes);
 app.use((req,res,next)=>{
   console.log('request receiving at'+new Date());
 
