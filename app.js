@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const cors =require('cors');
 const authRoutes = require('./routes/authRoutes');
 const { Sequelize } = require('sequelize');
+const menuRoutes =require('./routes/menu.routes')
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ const sequelize = new Sequelize({
   host: 'localhost',
   username: 'root',
   password: '',
-  database: 'userlist'
+  database: 'schoolmanagement'
 });
 
 sequelize.authenticate().then(() => {
@@ -28,7 +29,15 @@ sequelize.authenticate().then(() => {
 app.use(cors());
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api', menuRoutes);
+app.use((req,res,next)=>{
+  console.log('request receiving at'+new Date());
 
+  next();
+})
+app.get('/',(req,res)=>{
+res.send('hello world');
+})
 // Start the Server
 app.listen(3000, () => {
   console.log('Server running on http://localhost:3000');

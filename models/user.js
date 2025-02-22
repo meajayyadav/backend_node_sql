@@ -5,7 +5,7 @@ const sequelize = new Sequelize({
   host: 'localhost',
   username: 'root',
   password: '',
-  database: 'userlist'
+  database: 'schoolmanagement'
 });
 
 const User = sequelize.define('User', {
@@ -14,7 +14,12 @@ const User = sequelize.define('User', {
     primaryKey: true,
     autoIncrement: true,
   },
-  name: {
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  lastName: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
@@ -25,6 +30,10 @@ const User = sequelize.define('User', {
     unique: true,
   },
   password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  userId: {
     type: DataTypes.STRING,
     allowNull: false,
   },

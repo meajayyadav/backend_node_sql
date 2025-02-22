@@ -3,11 +3,15 @@ const { registerUser, loginUser } = require('../services/authService');
 
 const signup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    const user = await registerUser(name, email, password);
-    res.status(201).json({ message: 'User registered successfully', user });
+    const { firstName,lastName, email, password } = req.body;
+    const user = await registerUser(firstName,lastName, email, password);
+    res.status(201).json({error:false, message: 'User registered successfully', user });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    if (error.message === 'Email Id Already Exist') {
+      res.status(200).json({ error: true, message: error.message })
+    } else {
+      res.status(400).json({ message: error.message });
+    }
   }
 };
 
@@ -17,7 +21,11 @@ const login = async (req, res) => {
     const { user, token } = await loginUser(email, password);
     res.status(200).json({ message: 'Login successful', token, user });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    if (error.message === 'Not a register user') {
+      res.status(200).json({ error: true, message: error.message });
+    } else {
+      res.status(200).json({error:true,message: error.message });
+    }
   }
 };
 

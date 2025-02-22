@@ -17,7 +17,7 @@ const verifyPassword = async (password, hash) => {
 
 // Create JWT token
 const generateToken = (userId) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1m' });
 };
 
 module.exports = { hashPassword, verifyPassword, generateToken };
